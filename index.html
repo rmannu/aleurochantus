@@ -291,35 +291,30 @@
             transform: scale(0.99);
         }
 
-        /* Galleria Immagini & Link */
-        .visual-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .visual-item {
+        /* Immagine Guida Riconoscimento & Link */
+        .single-visual-item {
             background: #f1f5f9;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border);
+            margin-bottom: 14px;
         }
 
-        .visual-item img {
+        .single-visual-item img {
             width: 100%;
-            height: 100px;
+            max-height: 280px;
             object-fit: cover;
             display: block;
         }
 
         .visual-caption {
-            padding: 6px;
-            font-size: 0.7rem;
+            padding: 8px 12px;
+            font-size: 0.8rem;
             font-weight: 600;
             color: var(--text-main);
             text-align: center;
             background: #fff;
+            border-top: 1px solid var(--border);
         }
 
         .resource-link {
@@ -381,18 +376,12 @@
                 <i data-lucide="eye"></i> Guida Riconoscimento & Documenti
             </div>
             
-            <div class="visual-grid">
-                <div class="visual-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Aleurocanthus_spiniferus_01.jpg/640px-Aleurocanthus_spiniferus_01.jpg" alt="Pupari Neri">
-                    <div class="visual-caption">Pupari neri con cera bianca</div>
-                </div>
-                <div class="visual-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aleurocanthus_spiniferus_02.jpg/640px-Aleurocanthus_spiniferus_02.jpg" alt="Fumaggine">
-                    <div class="visual-caption">Fumaggine nera su foglia</div>
-                </div>
+            <div class="single-visual-item">
+                <img src="https://www.alberiurbani.it/wp-content/uploads/2021/10/A.spiniferus-foglia-Limone.jpg" alt="Infestazione da Aleurocanthus spiniferus su foglia di Limone">
+                <div class="visual-caption">Infestazione da <i>Aleurocanthus spiniferus</i> su foglia di agrumi</div>
             </div>
 
-            <a href="https://www.protezionedellepiante.it/aleurocanthus-spiniferus/#1719125053844-882e6df2-b7ff" target="_blank" class="resource-link">
+            <a href="https://www.protezionedellepiante.it/aleurocanthus-spiniferus/#1719125053844-882e6df2-b7ff" target="_blank" rel="noopener" class="resource-link">
                 <span style="display:flex; align-items:center; gap:8px;">
                     <i data-lucide="file-text" style="color:var(--primary);"></i>
                     Descrizione ed Ecologia (Fitosanitario)
@@ -400,7 +389,7 @@
                 <i data-lucide="external-link" style="width:16px; height:16px; color:var(--text-muted);"></i>
             </a>
 
-            <a href="https://www.regione.toscana.it/documents/10180/11270546/Scheda_A.spiniferus.pdf/504cbc9b-644e-c29d-593d-2258aa9ad388?t=1614335266886" target="_blank" class="resource-link" style="margin-bottom:0;">
+            <a href="https://www.regione.toscana.it/documents/10180/11270546/Scheda_A.spiniferus.pdf/504cbc9b-644e-c29d-593d-2258aa9ad388?t=1614335266886" target="_blank" rel="noopener" class="resource-link" style="margin-bottom:0;">
                 <span style="display:flex; align-items:center; gap:8px;">
                     <i data-lucide="file-check" style="color:var(--primary);"></i>
                     Scheda di Riconoscimento (PDF)
