@@ -42,7 +42,6 @@
             line-height: 1.5;
         }
 
-        /* Header Mobile */
         .app-header {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: white;
@@ -79,7 +78,6 @@
             padding: 16px;
         }
 
-        /* Cards */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -103,7 +101,6 @@
             color: var(--primary);
         }
 
-        /* Mappa & Geolocalizzazione */
         .geo-btn {
             width: 100%;
             background: var(--primary-light);
@@ -135,7 +132,6 @@
             text-align: center;
         }
 
-        /* Area Foto Accompagnamento */
         .photo-upload-zone {
             border: 2px dashed var(--border);
             border-radius: 12px;
@@ -204,7 +200,6 @@
             font-size: 12px;
         }
 
-        /* Pillole Selezionabili */
         .pill-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -229,7 +224,6 @@
             border-color: var(--primary);
         }
 
-        /* Form Inputs */
         .form-group {
             margin-bottom: 12px;
         }
@@ -267,7 +261,6 @@
             min-height: 80px;
         }
 
-        /* Pulsante Invia */
         .submit-btn {
             width: 100%;
             background: var(--primary);
@@ -296,7 +289,6 @@
             transform: scale(0.99);
         }
 
-        /* Immagine Guida Riconoscimento & Link */
         .single-visual-item {
             background: #f1f5f9;
             border-radius: 12px;
@@ -337,7 +329,6 @@
             margin-bottom: 8px;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -364,7 +355,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header class="app-header">
         <div class="header-content">
             <div class="header-title">
@@ -375,7 +365,6 @@
 
     <div class="container">
 
-        <!-- Riconoscimento & Link Istituzionali -->
         <div class="card" style="background:#f0fdf4; border-color:#bbf7d0;">
             <div class="card-title" style="color:var(--primary-dark);">
                 <i data-lucide="eye"></i> Guida Riconoscimento & Documenti
@@ -403,10 +392,8 @@
             </a>
         </div>
 
-        <!-- FORM PRINCIPALE DI SEGNALAZIONE -->
         <form id="reportForm">
 
-            <!-- 1. Posizione Geografica su Mappa -->
             <div class="card">
                 <div class="card-title">
                     <i data-lucide="map-pin"></i> 1. Posizione Geografica
@@ -418,7 +405,6 @@
                 <div class="coords-display" id="coordsText">Nessuna coordinata acquisita (Tocca il pulsante sopra)</div>
             </div>
 
-            <!-- 2. Foto dell'Infestazione (Accompagnamento) -->
             <div class="card">
                 <div class="card-title">
                     <i data-lucide="camera"></i> 2. Foto dell'Infestazione (Opzionale)
@@ -434,7 +420,6 @@
                 <div class="preview-container" id="previewContainer"></div>
             </div>
 
-            <!-- 3. Gravità Infestazione -->
             <div class="card">
                 <div class="card-title">
                     <i data-lucide="alert-triangle"></i> 3. Gravità dell'Infestazione
@@ -446,7 +431,6 @@
                 </div>
             </div>
 
-            <!-- 4. Dettagli Aggiuntivi -->
             <div class="card">
                 <div class="card-title">
                     <i data-lucide="file-text"></i> 4. Dettagli Aggiuntivi
@@ -465,7 +449,6 @@
                 </div>
             </div>
 
-            <!-- Pulsante Invio -->
             <button type="submit" id="submitBtn" class="submit-btn">
                 <i data-lucide="send"></i> INVIA SEGNALAZIONE
             </button>
@@ -473,17 +456,14 @@
         </form>
     </div>
 
-    <!-- Toast di Notifica -->
     <div id="toast" class="toast">
         <i data-lucide="check-circle" style="color:#22c55e;"></i>
         <span id="toastMsg">Segnalazione inviata con successo!</span>
     </div>
 
-    <!-- Leaflet JS per Mappe -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // LINK GOOGLE APPS SCRIPT COLLEGATO
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/a/macros/uniss.it/s/AKfycbxUlrWBfnYuPF5m3qQdOQcBP12gP7UMRgAjkV_hU-z4c0pyUa9ofn2u2MRCFTNHxdm4_g/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyO8gYTk_eP2Xi4I_rly_A5HSeLc4yTxt9PikNf3NEBQ1HbmU9anxEepRUVzvwyK0a4/exec";
 
         lucide.createIcons();
 
@@ -493,7 +473,6 @@
         let uploadedImages = [];
         let map, marker;
 
-        // Inizializzazione Mappa
         document.addEventListener("DOMContentLoaded", () => {
             map = L.map('map', { touchZoom: true }).setView([currentLat, currentLng], 6);
 
@@ -512,7 +491,6 @@
             getLocation();
         });
 
-        // Geolocalizzazione GPS
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -538,14 +516,12 @@
             document.getElementById('coordsText').innerText = `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
         }
 
-        // Selezione Gravità
         function selectSeverity(element) {
             document.querySelectorAll('#severityGrid .pill-option').forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
             selectedSeverity = element.getAttribute('data-value');
         }
 
-        // Caricamento Foto
         function handleFileSelect(event) {
             const files = event.target.files;
             const container = document.getElementById('previewContainer');
@@ -575,7 +551,6 @@
             element.parentElement.remove();
         }
 
-        // Gestione Invio Modulo
         document.getElementById('reportForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -589,7 +564,6 @@
                 return;
             }
 
-            // Disabilita il pulsante durante l'invio
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i data-lucide="loader"></i> Invio in corso...';
             lucide.createIcons();
@@ -601,10 +575,10 @@
                 gravita: selectedSeverity,
                 piantaOspite: hostPlant,
                 note: notes,
-                contatto: contact
+                contatto: contact,
+                foto: uploadedImages
             };
 
-            // Invio dati al Foglio Google
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -612,7 +586,7 @@
                 body: JSON.stringify(reportData)
             })
             .then(() => {
-                showToast("Segnalazione salvata sul Foglio Google!");
+                showToast("Segnalazione salvata con successo!");
                 document.getElementById('reportForm').reset();
                 document.getElementById('previewContainer').innerHTML = '';
                 uploadedImages = [];
