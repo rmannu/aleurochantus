@@ -86,7 +86,7 @@
             padding: 0 16px;
         }
 
-        /* Card Guida */
+        /* Card Generica */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -96,31 +96,100 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
-        .guide-card {
-            background: #eff6ff;
-            border-color: #bfdbfe;
-        }
-
         .card-title {
             font-size: 0.95rem;
             font-weight: 600;
-            color: #1e40af;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .guide-list {
-            list-style: none;
-            font-size: 0.85rem;
+        /* Sezione Guida con Immagini */
+        .guide-card {
+            background: #ffffff;
+            border-color: #cbd5e1;
+        }
+
+        .guide-card .card-title {
             color: #1e3a8a;
         }
 
-        .guide-list li {
-            margin-bottom: 6px;
+        /* Griglia Immagini di Riconoscimento */
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .visual-item {
+            background: #f1f5f9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .visual-item img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .visual-caption {
+            padding: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: center;
+            background: #fff;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Sezione Link Utili */
+        .links-card {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .links-card .card-title {
+            color: var(--primary-dark);
+        }
+
+        .resource-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+
+        .resource-link:active {
+            background: #f8fafc;
+        }
+
+        .resource-link span {
+            display: flex;
+            align-items: center;
             gap: 8px;
         }
 
@@ -195,20 +264,57 @@
 
     <div class="container">
 
-        <!-- Guida Rapida Identificazione -->
+        <!-- Guida Visiva per il Riconoscimento dell'Insetto -->
         <div class="card guide-card">
             <div class="card-title">
-                <i data-lucide="info"></i> Come riconoscerlo
+                <i data-lucide="eye"></i> Guida Fotografica al Riconoscimento
             </div>
-            <ul class="guide-list">
-                <li><i data-lucide="check-circle-2" style="width:16px; height:16px; flex-shrink:0;"></i> Forme ovali nere con margini cerosi bianchi sulla pagina inferiore della foglia.</li>
-                <li><i data-lucide="check-circle-2" style="width:16px; height:16px; flex-shrink:0;"></i> Presenza di abbondante patina nera (Fumaggine).</li>
-            </ul>
+            
+            <div class="visual-grid">
+                <!-- Foto 1: Pupari Neri -->
+                <div class="visual-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Aleurocanthus_spiniferus_01.jpg/640px-Aleurocanthus_spiniferus_01.jpg" alt="Neanidi e Pupari Neri">
+                    <div class="visual-caption">Pupari neri con margine ceroso bianco</div>
+                </div>
+
+                <!-- Foto 2: Fumaggine e Colonia -->
+                <div class="visual-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aleurocanthus_spiniferus_02.jpg/640px-Aleurocanthus_spiniferus_02.jpg" alt="Fumaggine e forme adulte">
+                    <div class="visual-caption">Presenza di abbondante fumaggine nera</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentazione e Link Fitosanitari -->
+        <div class="card links-card">
+            <div class="card-title">
+                <i data-lucide="book-open"></i> Documentazione Fitosanitaria
+            </div>
+            
+            <div class="resource-list">
+                <!-- Link 1: Descrizione Protezione delle Piante -->
+                <a href="https://www.protezionedellepiante.it/aleurocanthus-spiniferus/#1719125053844-882e6df2-b7ff" target="_blank" class="resource-link">
+                    <span>
+                        <i data-lucide="file-text" style="color:var(--primary);"></i>
+                        Descrizione ed Ecologia dell'insetto
+                    </span>
+                    <i data-lucide="external-link" style="width:16px; height:16px; color:var(--text-muted);"></i>
+                </a>
+
+                <!-- Link 2: Scheda Riconoscimento Regione Toscana -->
+                <a href="https://www.regione.toscana.it/documents/10180/11270546/Scheda_A.spiniferus.pdf/504cbc9b-644e-c29d-593d-2258aa9ad388?t=1614335266886" target="_blank" class="resource-link">
+                    <span>
+                        <i data-lucide="file-check" style="color:var(--primary);"></i>
+                        Scheda di Riconoscimento (PDF)
+                    </span>
+                    <i data-lucide="external-link" style="width:16px; height:16px; color:var(--text-muted);"></i>
+                </a>
+            </div>
         </div>
 
         <!-- Modulo Google Forms Integrato -->
         <div class="form-card">
-            <!-- Pulsante di Apertura Diretta (utile per utenti da smartphone) -->
+            <!-- Pulsante di Apertura Diretta -->
             <a href="https://forms.gle/uHo66P596nAtQZ7E9" target="_blank" class="action-btn">
                 <i data-lucide="external-link"></i>
                 APRI MODULO DI SEGNALAZIONE
