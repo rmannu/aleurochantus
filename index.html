@@ -5,21 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Segnalazione Aleurocanthus spiniferus</title>
     
-    <!-- Leaflet CSS per le mappe -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Font e Icone -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icone Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
             --primary: #15803d;
             --primary-dark: #166534;
-            --primary-light: #f0fdf4;
-            --accent: #dc2626;
             --bg: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #0f172a;
@@ -43,7 +40,7 @@
             line-height: 1.5;
         }
 
-        /* Header Mobile Optimization */
+        /* Header App */
         .app-header {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: white;
@@ -64,9 +61,8 @@
         }
 
         .header-title h1 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
         }
 
         .header-title p {
@@ -86,230 +82,33 @@
 
         .container {
             max-width: 600px;
-            margin: 0 auto;
-            padding: 16px;
+            margin: 16px auto 0;
+            padding: 0 16px;
         }
 
-        /* Card System */
+        /* Card Guida */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 20px;
+            padding: 18px;
             margin-bottom: 16px;
             border: 1px solid var(--border);
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
-        .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card-title i {
-            color: var(--primary);
-        }
-
-        /* Camera / Photo Input */
-        .photo-upload-zone {
-            border: 2px dashed var(--border);
-            border-radius: 12px;
-            padding: 24px 16px;
-            text-align: center;
-            background: #fafafa;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .photo-upload-zone:active {
-            background: var(--primary-light);
-            border-color: var(--primary);
-        }
-
-        .upload-icon-wrapper {
-            width: 56px;
-            height: 56px;
-            background: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            color: var(--primary);
-        }
-
-        #file-input {
-            display: none;
-        }
-
-        .preview-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .preview-item {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .remove-btn {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            background: rgba(0,0,0,0.6);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        /* Geolocation & Map */
-        .geo-btn {
-            width: 100%;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            border: 1px solid rgba(21, 128, 61, 0.2);
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        #map {
-            height: 220px;
-            width: 100%;
-            border-radius: 12px;
-            z-index: 1;
-        }
-
-        .coords-display {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 8px;
-            text-align: center;
-        }
-
-        /* Custom Selector Pills (Infestazione) */
-        .pill-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-
-        .pill-option {
-            border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 500;
-            background: #fff;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .pill-option.selected {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* Form Inputs */
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 6px;
-        }
-
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 0.95rem;
-            background: #fafafa;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            border-color: var(--primary);
-            background: #fff;
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        /* Submit Button */
-        .submit-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: var(--radius);
-            font-size: 1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(21, 128, 61, 0.3);
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .submit-btn:active {
-            background: var(--primary-dark);
-            transform: scale(0.99);
-        }
-
-        /* Info Guide Section */
         .guide-card {
             background: #eff6ff;
-            border: 1px solid #bfdbfe;
+            border-color: #bfdbfe;
         }
 
-        .guide-card .card-title {
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
             color: #1e40af;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .guide-list {
@@ -325,28 +124,59 @@
             gap: 8px;
         }
 
-        /* Toast Alert */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #0f172a;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* Card Pulsante e Modulo */
+        .form-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 20px;
+            text-align: center;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(21, 128, 61, 0.3);
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+        }
+
+        .action-btn:active {
+            background: var(--primary-dark);
+            transform: scale(0.98);
+        }
+
+        .forms-container {
+            width: 100%;
+            height: 750px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .footer-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 12px;
         }
     </style>
 </head>
@@ -371,238 +201,34 @@
                 <i data-lucide="info"></i> Come riconoscerlo
             </div>
             <ul class="guide-list">
-                <li><i data-lucide="check-circle-2" style="width:16px; height:16px; flex-shrink:0;"></i> Piccole forme ovali nere margini cerosi bianchi sulla pagina inferiore della foglia.</li>
-                <li><i data-lucide="check-circle-2" style="width:16px; height:16px; flex-shrink:0;"></i> Presenza abbondante di patina nera (Fumaggine).</li>
+                <li><i data-lucide="check-circle-2" style="width:16px; height:16px; flex-shrink:0;"></i> Forme ovali nere con margini cerosi bianchi sulla pagina inferiore della foglia.</li>
+                <li><i data-lucide="check-circle-2" style="width:16px; height:16px; flex-shrink:0;"></i> Presenza di abbondante patina nera (Fumaggine).</li>
             </ul>
         </div>
 
-        <form id="reportForm">
+        <!-- Modulo Google Forms Integrato -->
+        <div class="form-card">
+            <!-- Pulsante di Apertura Diretta (utile per utenti da smartphone) -->
+            <a href="https://forms.gle/uHo66P596nAtQZ7E9" target="_blank" class="action-btn">
+                <i data-lucide="external-link"></i>
+                APRI MODULO DI SEGNALAZIONE
+            </a>
 
-            <!-- 1. Foto dell'infestazione -->
-            <div class="card">
-                <div class="card-title">
-                    <i data-lucide="camera"></i> 1. Scatta o carica Foto
-                </div>
-                <div class="photo-upload-zone" onclick="document.getElementById('file-input').click()">
-                    <div class="upload-icon-wrapper">
-                        <i data-lucide="aperture" style="width:28px; height:28px;"></i>
-                    </div>
-                    <p style="font-size:0.9rem; font-weight:600; color:var(--text-main);">Tocca per aprire la Fotocamera</p>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Inquadra da vicino la pagina inferiore delle foglie</p>
-                    <!-- Input ottimizzato per smartphone: apre direttamente la fotocamera posteriore -->
-                    <input type="file" id="file-input" accept="image/*" capture="environment" multiple onchange="handleFileSelect(event)">
-                </div>
-                <div class="preview-container" id="previewContainer"></div>
+            <!-- Modulo Incorporato nella Pagina -->
+            <div class="forms-container">
+                <iframe src="https://forms.gle/uHo66P596nAtQZ7E9" title="Modulo di Segnalazione Google">Caricamento in corso...</iframe>
             </div>
 
-            <!-- 2. Posizione Geografica -->
-            <div class="card">
-                <div class="card-title">
-                    <i data-lucide="map-pin"></i> 2. Posizione Geografica
-                </div>
-                <button type="button" class="geo-btn" onclick="getLocation()">
-                    <i data-lucide="crosshair"></i> Usa la mia Posizione Attuale
-                </button>
-                <div id="map"></div>
-                <div class="coords-display" id="coordsText">Nessuna coordinata acquisita (Tocca il pulsante sopra)</div>
-            </div>
+            <p class="footer-note">
+                Le segnalazioni e le fotografie inviate vengono salvate sul Cloud per le verifiche fitosanitarie.
+            </p>
+        </div>
 
-            <!-- 3. Gravità Infestazione -->
-            <div class="card">
-                <div class="card-title">
-                    <i data-lucide="alert-triangle"></i> 3. Gravità dell'Infestazione
-                </div>
-                <div class="pill-grid" id="severityGrid">
-                    <div class="pill-option selected" data-value="Lieve" onclick="selectSeverity(this)">Lieve<br><small style="font-size:0.65rem; opacity:0.8;">Poche foglie</small></div>
-                    <div class="pill-option" data-value="Media" onclick="selectSeverity(this)">Media<br><small style="font-size:0.65rem; opacity:0.8;">Più rami</small></div>
-                    <div class="pill-option" data-value="Grave" onclick="selectSeverity(this)">Grave<br><small style="font-size:0.65rem; opacity:0.8;">Intera pianta</small></div>
-                </div>
-            </div>
-
-            <!-- 4. Dettagli Aggiuntivi -->
-            <div class="card">
-                <div class="card-title">
-                    <i data-lucide="file-text"></i> 4. Dettagli Aggiuntivi
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="hostPlantInput">Pianta ospite *</label>
-                    <input type="text" id="hostPlantInput" class="form-input" placeholder="Es. Limone, Cachi, Arancio, Rose..." required>
-                </div>
-                <div class="form-group" style="margin-top: 12px;">
-                    <label class="form-label" for="notesInput">Note o Indirizzo (Opzionale)</label>
-                    <textarea id="notesInput" class="form-textarea" placeholder="Aggiungi ulteriori indicazioni sul luogo o sulla pianta..."></textarea>
-                </div>
-                <div class="form-group" style="margin-top: 12px;">
-                    <label class="form-label" for="contactInput">Tuo Contatto / Email (Opzionale)</label>
-                    <input type="text" id="contactInput" class="form-input" placeholder="Per eventuali verifiche fitosanitarie">
-                </div>
-            </div>
-
-            <!-- Invia Segnalazione -->
-            <button type="submit" class="submit-btn">
-                <i data-lucide="send"></i> INVIA SEGNALAZIONE
-            </button>
-
-        </form>
     </div>
 
-    <!-- Toast di Notifica -->
-    <div id="toast" class="toast">
-        <i data-lucide="check-circle" style="color:#22c55e;"></i>
-        <span id="toastMsg">Segnalazione inviata con successo!</span>
-    </div>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Inizializza Icone Lucide
+        // Inizializzazione Icone Lucide
         lucide.createIcons();
-
-        // Variabili Stato
-        let currentLat = 41.9028;
-        let currentLng = 12.4964;
-        let selectedSeverity = "Lieve";
-        let uploadedImages = [];
-        let map, marker;
-
-        // Inizializzazione Mappe Leaflet (Basata su OpenStreetMap)
-        document.addEventListener("DOMContentLoaded", () => {
-            map = L.map('map', {
-                touchZoom: true,
-                bounceAtZoomLimits: true
-            }).setView([currentLat, currentLng], 6);
-
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; OpenStreetMap'
-            }).addTo(map);
-
-            marker = L.marker([currentLat, currentLng], {draggable: true}).addTo(map);
-
-            marker.on('dragend', function(event) {
-                const position = marker.getLatLng();
-                updateCoords(position.lat, position.lng);
-            });
-            
-            // Tentativo automatico di geolocalizzazione
-            getLocation();
-        });
-
-        // Gestione Geolocalizzazione
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        currentLat = position.coords.latitude;
-                        currentLng = position.coords.longitude;
-                        
-                        map.setView([currentLat, currentLng], 16);
-                        marker.setLatLng([currentLat, currentLng]);
-                        
-                        updateCoords(currentLat, currentLng);
-                        showToast("Posizione acquisita con precisione!");
-                    },
-                    (error) => {
-                        console.warn("Geolocalizzazione rifiutata o non disponibile.");
-                    },
-                    { enableHighAccuracy: true, timeout: 10000 }
-                );
-            }
-        }
-
-        function updateCoords(lat, lng) {
-            currentLat = lat;
-            currentLng = lng;
-            document.getElementById('coordsText').innerText = `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
-        }
-
-        // Gestione Selezione Livello Infestazione
-        function selectSeverity(element) {
-            document.querySelectorAll('#severityGrid .pill-option').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedSeverity = element.getAttribute('data-value');
-        }
-
-        // Gestione Caricamento e Anteprima Immagini
-        function handleFileSelect(event) {
-            const files = event.target.files;
-            const container = document.getElementById('previewContainer');
-            
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    uploadedImages.push(e.target.result);
-                    
-                    const item = document.createElement('div');
-                    item.className = 'preview-item';
-                    item.innerHTML = `
-                        <img src="${e.target.result}" alt="Anteprima">
-                        <button type="button" class="remove-btn" onclick="removeImage(${uploadedImages.length - 1}, this)">&times;</button>
-                    `;
-                    container.appendChild(item);
-                }
-                
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function removeImage(index, element) {
-            uploadedImages.splice(index, 1);
-            element.parentElement.remove();
-        }
-
-        // Gestione Invio Modulo
-        document.getElementById('reportForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const hostPlant = document.getElementById('hostPlantInput').value.trim();
-            const notes = document.getElementById('notesInput').value.trim();
-            const contact = document.getElementById('contactInput').value.trim();
-
-            if (!hostPlant) {
-                alert("Inserisci la pianta ospite su cui hai trovato l'insetto.");
-                return;
-            }
-
-            const reportData = {
-                id: Date.now(),
-                timestamp: new Date().toISOString(),
-                specie: "Aleurocanthus spiniferus",
-                latitudine: currentLat,
-                longitudine: currentLng,
-                gravita: selectedSeverity,
-                piantaOspite: hostPlant,
-                note: notes,
-                contatto: contact,
-                fotoConteggio: uploadedImages.length
-            };
-
-            // Salvataggio Locale (Simulazione invio Server/Database)
-            let reports = JSON.parse(localStorage.getItem('fitosanitary_reports') || '[]');
-            reports.push(reportData);
-            localStorage.setItem('fitosanitary_reports', JSON.stringify(reports));
-
-            showToast("Segnalazione inviata con successo!");
-
-            // Resetta Modulo
-            setTimeout(() => {
-                document.getElementById('reportForm').reset();
-                document.getElementById('previewContainer').innerHTML = '';
-                uploadedImages = [];
-            }, 1000);
-        });
-
-        // Mostra Toast
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
     </script>
 </body>
 </html>
