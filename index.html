@@ -286,7 +286,12 @@
             transition: background 0.2s ease;
         }
 
-        .submit-btn:active {
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .submit-btn:active:not(:disabled) {
             background: var(--primary-dark);
             transform: scale(0.99);
         }
@@ -461,7 +466,7 @@
             </div>
 
             <!-- Pulsante Invio -->
-            <button type="submit" class="submit-btn">
+            <button type="submit" id="submitBtn" class="submit-btn">
                 <i data-lucide="send"></i> INVIA SEGNALAZIONE
             </button>
 
@@ -477,6 +482,9 @@
     <!-- Leaflet JS per Mappe -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+        // LINK GOOGLE APPS SCRIPT COLLEGATO
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/a/macros/uniss.it/s/AKfycbxUlrWBfnYuPF5m3qQdOQcBP12gP7UMRgAjkV_hU-z4c0pyUa9ofn2u2MRCFTNHxdm4_g/exec";
+
         lucide.createIcons();
 
         let currentLat = 41.9028;
@@ -485,7 +493,7 @@
         let uploadedImages = [];
         let map, marker;
 
-        // Inizializzazione Mappa Leaflet + OpenStreetMap
+        // Inizializzazione Mappa
         document.addEventListener("DOMContentLoaded", () => {
             map = L.map('map', { touchZoom: true }).setView([currentLat, currentLng], 6);
 
@@ -574,37 +582,50 @@
             const hostPlant = document.getElementById('hostPlantInput').value.trim();
             const notes = document.getElementById('notesInput').value.trim();
             const contact = document.getElementById('contactInput').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
 
             if (!hostPlant) {
                 alert("Inserisci la pianta ospite.");
                 return;
             }
 
+            // Disabilita il pulsante durante l'invio
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i data-lucide="loader"></i> Invio in corso...';
+            lucide.createIcons();
+
             const reportData = {
-                id: Date.now(),
-                timestamp: new Date().toISOString(),
-                specie: "Aleurocanthus spiniferus",
+                timestamp: new Date().toLocaleString('it-IT'),
                 latitudine: currentLat,
                 longitudine: currentLng,
                 gravita: selectedSeverity,
                 piantaOspite: hostPlant,
                 note: notes,
-                contatto: contact,
-                fotoConto: uploadedImages.length
+                contatto: contact
             };
 
-            // Salvataggio nel browser dell'utente
-            let reports = JSON.parse(localStorage.getItem('fitosanitary_reports') || '[]');
-            reports.push(reportData);
-            localStorage.setItem('fitosanitary_reports', JSON.stringify(reports));
-
-            showToast("Segnalazione inviata con successo!");
-
-            setTimeout(() => {
+            // Invio dati al Foglio Google
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reportData)
+            })
+            .then(() => {
+                showToast("Segnalazione salvata sul Foglio Google!");
                 document.getElementById('reportForm').reset();
                 document.getElementById('previewContainer').innerHTML = '';
                 uploadedImages = [];
-            }, 1000);
+            })
+            .catch((error) => {
+                console.error("Errore di invio:", error);
+                showToast("Errore durante l'invio. Riprova.");
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i data-lucide="send"></i> INVIA SEGNALAZIONE';
+                lucide.createIcons();
+            });
         });
 
         function showToast(message) {
